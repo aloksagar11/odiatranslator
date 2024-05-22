@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Language Translator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Translate to Odia (Roman Script)</h1>
+        <p>Developed by Alok Sagar</p>
+        <textarea id="inputText" placeholder="Enter your sentence here" rows="4" cols="50"></textarea><br>
+        <button class="button-50" onclick="translateText()">Translate</button>
+        <h2>Translated Text:</h2>
+        <p id="outputText" class="outputText"></p>
+    </div>
+
+    <script>
+        async function translateText() {
+            const inputText = document.getElementById('inputText').value;
+            const response = await fetch('http://localhost:5000/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: inputText })
+            });
+            const data = await response.json();
+            document.getElementById('outputText').innerHTML = data.oriyaText +"<br>"+data.transliteratedText;
+        }
+    </script>
+</body>
+</html>
